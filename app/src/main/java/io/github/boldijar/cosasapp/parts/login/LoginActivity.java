@@ -3,21 +3,18 @@ package io.github.boldijar.cosasapp.parts.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
-import io.github.boldijar.cosasapp.data.LoginBody;
-import io.github.boldijar.cosasapp.data.LoginResponse;
 import io.github.boldijar.cosasapp.parts.home.HomeActivity;
-import io.github.boldijar.cosasapp.server.Http;
-import io.github.boldijar.cosasapp.util.Observatorul;
-import io.github.boldijar.cosasapp.util.Prefs;
-import io.github.boldijar.cosasapp.util.RxUtils;
 
 public class LoginActivity extends BaseActivity {
 
@@ -29,9 +26,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Prefs.Token.get() != null) {
-            finish();
-            startActivity(new Intent(this, HomeActivity.class));
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             return;
         }
         setContentView(R.layout.activity_login);
@@ -39,21 +36,40 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.login_continue)
-    void continueLogin() {
-        Http.getInstance().getApiService().login(new LoginBody(mPassword.getText().toString(), mEmail.getText().toString()))
-                .compose(RxUtils.applySchedulers())
-                .subscribe(new Observatorul<LoginResponse>() {
-                    @Override
-                    public void onNext(LoginResponse loginResponse) {
-                        if (loginResponse.isSuccess()) {
-                            FirebaseMessaging.getInstance().subscribeToTopic(loginResponse.mUser.mId + "");
-                            Prefs.Token.put(loginResponse.mUser.mToken);
-                            Prefs.User.putAsJson(loginResponse.mUser);
-                            finish();
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        }
+    void register() {
+        FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(mEmail.getText().toString(),
+                        mPassword.getText().toString())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     }
+                })
+                .addOnFailureListener(e -> {
+                    if (e instanceof FirebaseAuthUserCollisionException) {
+                        login();
+                        return;
+                    }
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
+    }
+
+    private void login() {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                mEmail.getText().toString(),
+                mPassword.getText().toString())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Invalid login", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

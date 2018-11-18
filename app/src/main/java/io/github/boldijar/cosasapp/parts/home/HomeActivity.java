@@ -47,7 +47,6 @@ public class HomeActivity extends BaseActivity {
     private void loadUi() {
         ButterKnife.bind(this);
         mPulsatorLayout.start();
-        Glide.with(this).load(Prefs.getUser().mImage).into(mImage);
     }
 
     @OnClick(R.id.home_logout)
