@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -129,6 +130,7 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
 
                     @Override
                     public void onNext(List<Issue> issues) {
+                        issues.add(0, Issue.ADD_ISSUE);
                         addMarkers(issues);
                         mAdapter.add(issues);
                     }
@@ -147,9 +149,21 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
 
     private void addMarkers(List<Issue> issues) {
         for (Issue issue : issues) {
+            if (issue == Issue.ADD_ISSUE) {
+                continue;
+            }
             MarkerOptions markerOptions = new MarkerOptions().title(issue.getTitle()).position(new LatLng(issue.getLatitude(), issue.getLongitude()));
             Marker marker = mGoogleMap.addMarker(markerOptions);
             marker.setTag(issue);
+        }
+    }
+
+    private void likeIssue(Issue item, ImageView likeIssue) {
+        item.setLiked(!item.isLiked());
+        if (item.isLiked()) {
+            likeIssue.setImageResource(R.drawable.ic_thumb_down_black_24dp);
+        } else {
+            likeIssue.setImageResource(R.drawable.ic_thumb_up_black_24dp);
         }
     }
 
@@ -159,6 +173,12 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
         ImageView mImage;
         @BindView(R.id.issue_text)
         TextView mText;
+        @BindView(R.id.issue_like)
+        ImageView mLikeIssue;
+        @BindView(R.id.issue_normal)
+        View mNormalIssue;
+        @BindView(R.id.issue_add)
+        View mAddIssue;
 
         public IssueHolder(ViewGroup parent) {
             super(parent, R.layout.item_issue);
@@ -166,6 +186,21 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
 
         @Override
         public void bind(Issue item) {
+            itemView.setOnClickListener(v -> {
+                if (item == Issue.ADD_ISSUE) {
+                    addIssue();
+                } else {
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(item.getLatitude(), item.getLongitude()), 12.0f));
+                }
+            });
+            if (item == Issue.ADD_ISSUE) {
+                mAddIssue.setVisibility(View.VISIBLE);
+                mNormalIssue.setVisibility(View.GONE);
+                return;
+            }
+            mAddIssue.setVisibility(View.GONE);
+            mNormalIssue.setVisibility(View.VISIBLE);
+
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transforms(new CenterCrop(),
                     new RoundedCorners(mImage.getContext().getResources().getDimensionPixelSize(R.dimen.elevation)));
@@ -175,7 +210,19 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
             }
             Glide.with(mImage.getContext()).load(image).apply(requestOptions).into(mImage);
             mText.setText(item.getTitle());
-            itemView.setOnClickListener(v -> mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(item.getLatitude(), item.getLongitude()), 12.0f)));
+            mLikeIssue.setOnClickListener(v -> likeIssue(item, mLikeIssue));
+            if (item.isLiked()) {
+                mLikeIssue.setImageResource(R.drawable.ic_thumb_down_black_24dp);
+            } else {
+                mLikeIssue.setImageResource(R.drawable.ic_thumb_up_black_24dp);
+            }
+
         }
     }
+
+    private void addIssue() {
+
+    }
+
+
 }

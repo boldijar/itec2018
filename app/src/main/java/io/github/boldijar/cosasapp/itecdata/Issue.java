@@ -8,6 +8,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Issue {
 
+    public final static Issue ADD_ISSUE = new Issue();
+
     @SerializedName("CreatedAt")
     private Long mCreatedAt;
     @SerializedName("CreatedBy")
@@ -30,6 +32,16 @@ public class Issue {
     private String mTitle;
     @SerializedName("UpVotes")
     private Long mUpVotes;
+
+    private boolean mLiked;
+
+    public void setLiked(boolean liked) {
+        mLiked = liked;
+    }
+
+    public boolean isLiked() {
+        return mLiked;
+    }
 
     public Long getCreatedAt() {
         return mCreatedAt;
