@@ -240,7 +240,16 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
     }
 
     private void addIssue() {
-        startActivity(new Intent(this, AddIssueActivity.class));
+        startActivityForResult(new Intent(this, AddIssueActivity.class), 2);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            mAdapter.clear();
+            mGoogleMap.clear();
+            loadCircle();
+            loadIssues();
+        }
+    }
 }
