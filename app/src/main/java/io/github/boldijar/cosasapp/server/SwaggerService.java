@@ -1,6 +1,9 @@
 package io.github.boldijar.cosasapp.server;
 
 
+import java.util.List;
+
+import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.LoginResponse;
 import io.github.boldijar.cosasapp.itecdata.Response;
 import io.github.boldijar.cosasapp.itecdata.User;
@@ -8,6 +11,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -22,5 +26,8 @@ public interface SwaggerService {
     @POST("Token")
     @FormUrlEncoded
     Observable<LoginResponse> login(@Field("username") String username, @Field("password") String password, @Field("grant_type") String grantType);
+
+    @GET("Issue/GetAll")
+    Observable<List<Issue>> getIssues();
 
 }

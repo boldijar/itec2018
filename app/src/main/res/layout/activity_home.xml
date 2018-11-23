@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,11 +9,11 @@
         android:id="@+id/home_image_layout"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,10 +32,9 @@
             android:clickable="true"
             android:contentDescription="@null"
             android:focusable="true"
-            android:minHeight="125dp"
             android:minWidth="125dp"
-            tools:src="@drawable/brain"
-            />
+            android:minHeight="125dp"
+            tools:src="@drawable/brain" />
 
 
     </pl.bclogic.pulsator4droid.library.PulsatorLayout>
@@ -57,7 +55,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/home_create_room"
+                android:id="@+id/home_issues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -65,80 +63,15 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="@string/create_room"
+                android:text="Issues"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:alpha=".3"
-                android:background="@color/text_color_secondary"
-                />
-
-            <TextView
-                android:id="@+id/home_join_room"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/joinroom"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha=".3"
-                android:background="@color/text_color_secondary"
-                />
-
-            <TextView
-                android:id="@+id/home_quiz_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/quiz_history"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha=".3"
-                android:background="@color/text_color_secondary"
-                />
-
-            <TextView
-                android:id="@+id/home_top"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/top"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha=".3"
-                android:background="@color/text_color_secondary"
-                />
+                android:background="@color/text_color_secondary" />
 
 
             <TextView
@@ -152,30 +85,15 @@
                 android:padding="16dp"
                 android:text="@string/logout"
                 android:textColor="@color/text_color"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:alpha=".3"
-                android:background="@color/text_color_secondary"
-                />
+                android:background="@color/text_color_secondary" />
 
 
-            <TextView
-                android:id="@+id/home_flash_challenge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/flash_challenge"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"
-                />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -184,15 +102,15 @@
         fontPath="Poppins-Light.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/terms_and_conditions"
         android:textColor="@color/text_color_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingPrefix"/>
+        tools:ignore="MissingPrefix" />
 </android.support.constraint.ConstraintLayout>

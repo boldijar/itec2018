@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.github.boldijar.cosasapp">
+    package="io.github.boldijar.cosasapp">
 
     <application
         android:name="ShaormApp"
@@ -13,32 +13,35 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".parts.login.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".parts.home.HomeActivity"/>
-        <activity android:name=".parts.room.RoomWaitingActivity"/>
-        <activity android:name=".parts.room.RoomListActivity"/>
+        <activity android:name=".parts.home.HomeActivity" />
+        <activity android:name=".parts.room.RoomWaitingActivity" />
+        <activity android:name=".parts.room.RoomListActivity" />
         <activity android:name=".game.GameActivity">
 
         </activity>
-        <activity android:name=".game.stats.GameStatsActivity"/>
-        <activity android:name=".leaderboard.LeaderboardActivity"/>
-        <activity android:name=".parts.history.HistoryActivity"/>
+        <activity android:name=".game.stats.GameStatsActivity" />
+        <activity android:name=".leaderboard.LeaderboardActivity" />
+        <activity android:name=".parts.history.HistoryActivity" />
         <activity android:name=".parts.login.RegisterActivity" />
+        <activity android:name=".parts.issues.IssuesActivity" />
 
         <service android:name=".fcm.FCMService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDF-HoiXNF2dhcndxqxxX1n-Q6t5XkLxow"/>
-
+            android:value="AIzaSyDF-HoiXNF2dhcndxqxxX1n-Q6t5XkLxow" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

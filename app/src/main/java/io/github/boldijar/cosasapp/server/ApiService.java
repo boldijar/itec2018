@@ -54,4 +54,5 @@ public interface ApiService {
 
     @GET("rooms/history")
     Observable<HistoryResponse> getHistory();
+
 }
