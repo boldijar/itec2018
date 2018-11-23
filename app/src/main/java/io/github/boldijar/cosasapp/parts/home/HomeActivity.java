@@ -51,4 +51,9 @@ public class HomeActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.home_stats)
+    void stats() {
+        startActivity(new Intent(this, StatsActivity.class));
+    }
+
 }

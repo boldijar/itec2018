@@ -7,6 +7,7 @@ import io.github.boldijar.cosasapp.itecdata.CommentModel;
 import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.LoginResponse;
 import io.github.boldijar.cosasapp.itecdata.Response;
+import io.github.boldijar.cosasapp.itecdata.Stats;
 import io.github.boldijar.cosasapp.itecdata.User;
 import io.github.boldijar.cosasapp.itecdata.UserResponse;
 import io.reactivex.Observable;
@@ -42,4 +43,7 @@ public interface SwaggerService {
 
     @POST("Comment/Create/{id}")
     Observable<CommentModel> createComment(@Path("id") String id, @Body CommentModel commentModel);
+
+    @GET("Statistics/GetStats")
+    Observable<Stats> getStats();
 }
