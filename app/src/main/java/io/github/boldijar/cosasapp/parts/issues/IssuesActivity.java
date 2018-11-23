@@ -1,5 +1,6 @@
 package io.github.boldijar.cosasapp.parts.issues;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,7 +30,9 @@ import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.base.FastAdapter;
 import io.github.boldijar.cosasapp.itecdata.Issue;
+import io.github.boldijar.cosasapp.itecdata.User;
 import io.github.boldijar.cosasapp.server.Http;
+import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -98,7 +102,21 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        loadCircle();
         loadIssues();
+        mGoogleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(new LatLng(Prefs.getItecUser().getLatitude(), Prefs.getItecUser().getLongitude()), 12.0f))
+        ;
+    }
+
+    private void loadCircle() {
+        User user = Prefs.getItecUser();
+        CircleOptions circleOptions = new CircleOptions()
+                .center(new LatLng(user.getLatitude(), user.getLongitude()))
+                .strokeColor(Color.TRANSPARENT)
+                .radius(user.getRadius() * 50)
+                .fillColor(0x2000ff00);
+        mGoogleMap.addCircle(circleOptions);
     }
 
     private void loadIssues() {
@@ -158,7 +176,6 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
             Glide.with(mImage.getContext()).load(image).apply(requestOptions).into(mImage);
             mText.setText(item.getTitle());
             itemView.setOnClickListener(v -> mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(item.getLatitude(), item.getLongitude()), 12.0f)));
-
         }
     }
 }

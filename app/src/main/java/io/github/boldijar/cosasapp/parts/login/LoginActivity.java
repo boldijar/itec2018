@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.itecdata.LoginResponse;
+import io.github.boldijar.cosasapp.itecdata.UserResponse;
 import io.github.boldijar.cosasapp.parts.home.HomeActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.Prefs;
@@ -53,8 +54,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onNext(LoginResponse loginResponse) {
                         Prefs.Token.put(loginResponse.getToken());
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        finish();
+                        loadUser();
                     }
 
                     @Override
@@ -62,6 +62,35 @@ public class LoginActivity extends BaseActivity {
                         e.printStackTrace();
                         Toast.makeText(LoginActivity.this, "Error logging in.", Toast.LENGTH_SHORT).show();
 
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void loadUser() {
+        Http.getInstance().getSwaggerService().getUser(mEmail.getText().toString())
+                .compose(RxUtils.applySchedulers())
+                .subscribe(new Observer<UserResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        userResponse.getUser().setEmail(mEmail.getText().toString());
+                        Prefs.User.putAsJson(userResponse.getUser());
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
                     }
 
                     @Override

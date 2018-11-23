@@ -7,12 +7,14 @@ import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.LoginResponse;
 import io.github.boldijar.cosasapp.itecdata.Response;
 import io.github.boldijar.cosasapp.itecdata.User;
+import io.github.boldijar.cosasapp.itecdata.UserResponse;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author Paul
@@ -29,5 +31,8 @@ public interface SwaggerService {
 
     @GET("Issue/GetAll")
     Observable<List<Issue>> getIssues();
+
+    @GET("Account/GetUserByEmail")
+    Observable<UserResponse> getUser(@Query("email") String email);
 
 }

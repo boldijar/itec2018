@@ -14,7 +14,7 @@ import com.google.gson.Gson;
  */
 public enum Prefs {
 
-//    {"Age":21,"Email":"boldijar.paul@gmail.com","FullName":"Paul Boldijar","Gender":0,"Id":
+    //    {"Age":21,"Email":"boldijar.paul@gmail.com","FullName":"Paul Boldijar","Gender":0,"Id":
 // "65ee1630-ee2c-4c16-aa60-f1d88be11216","Latitude":-33.993213,"Longitude":122.2356088,"Password":"parola","Radius":49}
     User, Token;
 
@@ -37,6 +37,10 @@ public enum Prefs {
 
     public static io.github.boldijar.cosasapp.data.User getUser() {
         return User.getFromJson(io.github.boldijar.cosasapp.data.User.class);
+    }
+
+    public static io.github.boldijar.cosasapp.itecdata.User getItecUser() {
+        return User.getFromJson(io.github.boldijar.cosasapp.itecdata.User.class);
     }
 
     public void put(Object value) {

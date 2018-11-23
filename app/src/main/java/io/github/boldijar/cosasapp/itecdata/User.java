@@ -26,6 +26,9 @@ public class User {
     @SerializedName("Radius")
     private Integer mRadius;
 
+    public User(){
+
+    }
     public User(Integer age, String email, String fullName, Integer gender, Double latitude, Double longitude, String password, Integer radius) {
         mId = java.util.UUID.randomUUID().toString();
         mAge = age;
