@@ -1,5 +1,6 @@
 package io.github.boldijar.cosasapp.parts.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -7,6 +8,11 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +50,29 @@ public class RegisterActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.login_location)
+    void locatinClick() {
+        int PLACE_PICKER_REQUEST = 1;
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Place place = PlacePicker.getPlace(data, this);
+            mLocation.setTag(place);
+            mLocation.setText(place.getName());
+        }
+    }
+
     @OnClick(R.id.login_continue)
     void register() {
         String name = mName.getText().toString();
@@ -57,12 +86,13 @@ public class RegisterActivity extends BaseActivity {
         }
         String password = mPassword.getText().toString();
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || age == 0) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || age == 0 || mLocation.getTag() == null) {
             fillFieldsError();
             return;
         }
-        double latitude = 43.2;
-        double longitude = 24.2;
+        Place place = (Place) mLocation.getTag();
+        double latitude = place.getLatLng().latitude;
+        double longitude = place.getLatLng().longitude;
 
         User user = new User(age, email, name, mSpinner.getSelectedItemPosition(), latitude, longitude, password, radius);
         Http.getInstance().getSwaggerService()
@@ -76,7 +106,13 @@ public class RegisterActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Response response) {
-                        Toast.makeText(RegisterActivity.this, "Status: " + response.isSuccess(), Toast.LENGTH_SHORT).show();
+                        if (response.isSuccess()) {
+                            Toast.makeText(RegisterActivity.this, "Registering success", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Error trying to register.", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
 
                     @Override

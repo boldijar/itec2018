@@ -67,7 +67,7 @@
                     android:maxLines="1"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
-                    android:text="razvan.dezsi@gmail.com"
+                    android:text="deventuredev@gmail.com"
                     android:textColor="@color/text_color"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -105,7 +105,7 @@
                     android:maxLines="1"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
-                    android:text="secret"
+                    android:text="deventure1@"
                     android:textColor="@color/text_color" />
             </LinearLayout>
 
