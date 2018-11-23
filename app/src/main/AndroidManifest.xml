@@ -29,6 +29,7 @@
         <activity android:name=".parts.history.HistoryActivity" />
         <activity android:name=".parts.login.RegisterActivity" />
         <activity android:name=".parts.issues.IssuesActivity" />
+        <activity android:name=".parts.issues.AddIssueActivity" />
 
         <service android:name=".fcm.FCMService">
             <intent-filter>

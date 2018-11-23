@@ -35,4 +35,6 @@ public interface SwaggerService {
     @GET("Account/GetUserByEmail")
     Observable<UserResponse> getUser(@Query("email") String email);
 
+    @POST("Issue/Create")
+    Observable<Issue> createIssue(@Body Issue issue);
 }

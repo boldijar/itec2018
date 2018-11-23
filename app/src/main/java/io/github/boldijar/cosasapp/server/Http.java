@@ -2,11 +2,15 @@ package io.github.boldijar.cosasapp.server;
 
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -33,7 +37,17 @@ public class Http {
                         .create())
                 )
                 .client(new OkHttpClient.Builder()
-                        .addInterceptor(interceptor).build())
+                        .addInterceptor(interceptor).addInterceptor(new Interceptor() {
+                            @Override
+                            public Response intercept(Chain chain) throws IOException {
+                                Request original = chain.request();
+
+                                Request.Builder requestBuilder = original.newBuilder();
+                                requestBuilder.addHeader("Authorization", "Bearer " + Prefs.Token.get());
+                                Request request = requestBuilder.build();
+                                return chain.proceed(request);
+                            }
+                        }).build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .baseUrl(ENDPOINT)
                 .build().create(SwaggerService.class);

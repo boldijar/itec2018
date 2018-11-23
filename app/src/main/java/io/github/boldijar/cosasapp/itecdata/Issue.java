@@ -35,6 +35,19 @@ public class Issue {
 
     private boolean mLiked;
 
+    public Issue() {
+
+    }
+
+    public Issue(String title, String message, double latitude, double longitude, String createdBy) {
+        mTitle = title;
+        mDescription = message;
+        mLatitude = latitude;
+        mLongitude = longitude;
+        mCreatedBy = createdBy;
+        mId = java.util.UUID.randomUUID().toString();
+    }
+
     public void setLiked(boolean liked) {
         mLiked = liked;
     }

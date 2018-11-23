@@ -1,5 +1,6 @@
 package io.github.boldijar.cosasapp.parts.issues;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -221,8 +222,7 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
     }
 
     private void addIssue() {
-
+        startActivity(new Intent(this, AddIssueActivity.class));
     }
-
 
 }
