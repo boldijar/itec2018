@@ -3,6 +3,7 @@ package io.github.boldijar.cosasapp.server;
 
 import java.util.List;
 
+import io.github.boldijar.cosasapp.itecdata.CommentModel;
 import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.LoginResponse;
 import io.github.boldijar.cosasapp.itecdata.Response;
@@ -14,6 +15,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -37,4 +39,7 @@ public interface SwaggerService {
 
     @POST("Issue/Create")
     Observable<Issue> createIssue(@Body Issue issue);
+
+    @POST("Comment/Create/{id}")
+    Observable<CommentModel> createComment(@Path("id") String id, @Body CommentModel commentModel);
 }

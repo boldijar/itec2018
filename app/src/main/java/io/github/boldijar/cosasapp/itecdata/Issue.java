@@ -32,6 +32,12 @@ public class Issue {
     private String mTitle;
     @SerializedName("UpVotes")
     private Long mUpVotes;
+    @SerializedName("Comments")
+    private List<CommentModel> mCommentModels;
+
+    public List<CommentModel> getCommentModels() {
+        return mCommentModels;
+    }
 
     private boolean mLiked;
 

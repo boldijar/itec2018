@@ -33,6 +33,7 @@ import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.base.FastAdapter;
 import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.User;
+import io.github.boldijar.cosasapp.parts.comment.CommentsActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
@@ -198,6 +199,8 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
         View mNormalIssue;
         @BindView(R.id.issue_add)
         View mAddIssue;
+        @BindView(R.id.issue_comment)
+        View mComment;
 
         public IssueHolder(ViewGroup parent) {
             super(parent, R.layout.item_issue);
@@ -236,6 +239,7 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
                 mLikeIssue.setImageResource(R.drawable.ic_thumb_up_black_24dp);
             }
 
+            mComment.setOnClickListener(v -> startActivityForResult(CommentsActivity.createIntent(item.getId(), item.getCommentModels(), IssuesActivity.this), 2));
         }
     }
 

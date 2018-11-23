@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/comments_bottom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <EditText
+        android:id="@+id/comments_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="Comment here"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        android:textColorHint="#939393"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/comments_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_save_black_24dp"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingLeft="14.2dp"
+        android:paddingTop="10.6dp"
+        android:paddingRight="14.2dp"
+        android:paddingBottom="10.6dp"
+        android:text="Save"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="14.8sp" />
+
+</LinearLayout>

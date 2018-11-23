@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop=".1dp"
+    android:background="@color/white"
+    app:cardElevation="4dp"
+    tools:ignore="MissingPrefix">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/comment_profile_picture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/comment_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/comment_profile_picture"
+            app:layout_constraintTop_toTopOf="@+id/comment_profile_picture"
+            tools:text="Name" />
+
+        <TextView
+            android:id="@+id/comment_text"
+            fontPath="fonts/Gilroy-Regular.otf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comment_name"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/comment_name"
+            app:layout_constraintTop_toBottomOf="@+id/comment_name"
+            tools:text="Comment goes here" />
+
+        <TextView
+            android:id="@+id/comment_text_time"
+            fontPath="fonts/Gilroy-Regular.otf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/comment_name"
+            app:layout_constraintTop_toBottomOf="@+id/comment_text"
+            tools:text="Comment Time" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
