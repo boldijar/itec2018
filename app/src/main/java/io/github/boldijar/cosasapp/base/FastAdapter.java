@@ -62,6 +62,10 @@ public abstract class FastAdapter<Type, Holder extends FastAdapter.AbstractHolde
         }
     }
 
+    public List<Type> getItems() {
+        return mItems;
+    }
+
     public static class AbstractHolder<T> extends RecyclerView.ViewHolder {
 
         public AbstractHolder(ViewGroup parent, int layoutId) {

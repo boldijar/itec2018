@@ -39,7 +39,7 @@ import io.github.boldijar.cosasapp.util.RxUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
+public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     @BindView(R.id.issues_map)
     MapView mMapView;
@@ -104,6 +104,7 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        googleMap.setOnMarkerClickListener(this);
         loadCircle();
         loadIssues();
         mGoogleMap.animateCamera(
@@ -166,6 +167,23 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback {
         } else {
             likeIssue.setImageResource(R.drawable.ic_thumb_up_black_24dp);
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker.getTag() == null) {
+            return false;
+        }
+        Issue issue = (Issue) marker.getTag();
+        List<Issue> issues = mAdapter.getItems();
+        for (int i1 = 0; i1 < issues.size(); i1++) {
+            Issue i = issues.get(i1);
+            if (i == issue) {
+                mRecyclerView.getLayoutManager().scrollToPosition(i1);
+                return false;
+            }
+        }
+        return false;
     }
 
     public class IssueHolder extends FastAdapter.AbstractHolder<Issue> {
