@@ -22,7 +22,7 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
-    @POST("login")
+    @POST("register")
     Observable<LoginResponse> login(@Body LoginBody body);
 
     @GET("users")

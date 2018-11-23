@@ -27,6 +27,7 @@
         <activity android:name=".game.stats.GameStatsActivity"/>
         <activity android:name=".leaderboard.LeaderboardActivity"/>
         <activity android:name=".parts.history.HistoryActivity"/>
+        <activity android:name=".parts.login.RegisterActivity" />
 
         <service android:name=".fcm.FCMService">
             <intent-filter>

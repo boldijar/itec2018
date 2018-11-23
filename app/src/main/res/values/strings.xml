@@ -19,4 +19,5 @@
     <string name="gamehistory">Games history</string>
     <string name="emoji_lost">😢</string>
     <string name="emoji_won">😀</string>
+    <string name="create_account">Create account</string>
 </resources>

@@ -20,17 +20,30 @@ public class Http {
 
     private static boolean DEBUG = true;
 
-    private static final String ENDPOINT = "http://56baae01.ngrok.io/api/";
+    private static final String ENDPOINT = "http://itec-api.deventure.co/api/";
     private ApiService mApiService;
+    private SwaggerService mSwaggerService;
 
     private Http() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        mSwaggerService = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
+                        .setDateFormat("yyyy-MM-dd hh:mm:ss")
+                        .create())
+                )
+                .client(new OkHttpClient.Builder()
+                        .addInterceptor(interceptor).build())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .baseUrl(ENDPOINT)
+                .build().create(SwaggerService.class);
+
         mApiService = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
                         .setDateFormat("yyyy-MM-dd hh:mm:ss")
                         .create())
                 )
+
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .baseUrl(ENDPOINT)
                 .client(new OkHttpClient.Builder()
@@ -59,6 +72,10 @@ public class Http {
                         })
                         .build())
                 .build().create(ApiService.class);
+    }
+
+    public SwaggerService getSwaggerService() {
+        return mSwaggerService;
     }
 
     public ApiService getApiService() {

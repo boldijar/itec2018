@@ -2,11 +2,20 @@ package io.github.boldijar.cosasapp.parts.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Date;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +34,7 @@ import io.github.boldijar.cosasapp.util.Observatorul;
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
+import timber.log.Timber;
 
 /**
  * @author Paul
@@ -42,6 +52,30 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         loadUi();
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("when", new Date().toString());
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("texts")
+                .add(map)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        Timber.e(task.isSuccessful() + "");
+                        if (task.getException() != null)
+                            task.getException().printStackTrace();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+
     }
 
     private void loadUi() {
