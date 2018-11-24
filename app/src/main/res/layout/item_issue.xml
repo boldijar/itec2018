@@ -29,7 +29,7 @@
             <View
                 android:id="@+id/issue_gradient"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="100dp"
                 android:background="@drawable/black_gradient"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
