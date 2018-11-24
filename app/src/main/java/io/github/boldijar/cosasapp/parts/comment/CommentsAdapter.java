@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.itecdata.CommentModel;
+import io.github.boldijar.cosasapp.util.Prefs;
 
 /**
  * @author Paul
@@ -72,10 +73,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         holder.mName.setText(comment.getCreator());
         holder.mText.setText(comment.getContent());
         holder.mTime.setText(format.format(new Date(comment.getCreatedAt())));
-        int index = ((int) ((Math.random() * 1000)) % IMAGES.length);
+        int index = Math.abs(comment.getCreator().hashCode()) % IMAGES.length;
         Glide.with(holder.mImage.getContext())
                 .load(IMAGES[index])
                 .into(holder.mImage);
+        String commentCreator = comment.getCreator();
+        String ownName = Prefs.getItecUser().getFullName();
+        holder.mClose.setVisibility(ownName.equals(commentCreator) ? View.VISIBLE : View.GONE);
+        holder.mClose.setOnClickListener(v -> {
+            try {
+                mCommentModels.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -90,6 +102,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     static class CommentsHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.comment_close)
+        View mClose;
         @BindView(R.id.comment_name)
         TextView mName;
         @BindView(R.id.comment_profile_picture)

@@ -152,6 +152,7 @@ public class ProfileActivity extends BaseActivity {
 
                     @Override
                     public void onComplete() {
+                        Prefs.User.putAsJson(user);
                         Toast.makeText(ProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                     }
 
