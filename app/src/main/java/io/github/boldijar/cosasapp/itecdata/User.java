@@ -3,6 +3,8 @@ package io.github.boldijar.cosasapp.itecdata;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 
 @SuppressWarnings("unused")
 public class User {
@@ -25,10 +27,17 @@ public class User {
     private String mPassword;
     @SerializedName("Radius")
     private Integer mRadius;
+    @SerializedName("Issues")
+    private List<Issue> mIssueList;
 
-    public User(){
+    public List<Issue> getIssueList() {
+        return mIssueList;
+    }
+
+    public User() {
 
     }
+
     public User(Integer age, String email, String fullName, Integer gender, Double latitude, Double longitude, String password, Integer radius) {
         mId = java.util.UUID.randomUUID().toString();
         mAge = age;
@@ -40,7 +49,8 @@ public class User {
         mPassword = password;
         mRadius = radius;
     }
-    public User(Integer age, String email, String fullName, Integer gender, Double latitude, Double longitude, String password, Integer radius,String id) {
+
+    public User(Integer age, String email, String fullName, Integer gender, Double latitude, Double longitude, String password, Integer radius, String id) {
         mId = id;
         mAge = age;
         mEmail = email;
