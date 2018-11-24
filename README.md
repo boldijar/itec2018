@@ -1,4 +1,2 @@
-# mondly2
-Mondly2 hackathon.
+# itec
 
-won 1k on this one
