@@ -45,6 +45,7 @@ public class StatsActivity extends BaseActivity {
     RecyclerView mStatsRecycler;
     @BindView(R.id.health_meter)
     PointerSpeedometer healthMeter;
+    int gaugeColor = 0;
     private FastAdapter<MonthlyData, StatsActivity.MonthlyDataHolder> mAdapter;
 
 
@@ -82,6 +83,7 @@ public class StatsActivity extends BaseActivity {
         healthMeter.setTrembleDegree(0.1f);
         healthMeter.setUnit("");
         healthMeter.speedTo(stats.getHealthIndex());
+        gaugeColor = healthMeter.getBackgroundCircleColor();
 
 
         mAdapter = new FastAdapter<MonthlyData, MonthlyDataHolder>() {
@@ -112,14 +114,16 @@ public class StatsActivity extends BaseActivity {
             data.add(new ValueDataEntry("Solved issues", item.getSolvedIssues()));
 
             Column column = cartesian.column(data);
+            column.color(String.format("#%06X", (0xFFFFFF & gaugeColor)));
 
-            column.tooltip()
+            column
+                    .tooltip()
                     .titleFormat("{%X}")
                     .position(Position.CENTER_BOTTOM)
                     .anchor(Anchor.CENTER_BOTTOM)
                     .offsetX(0d)
                     .offsetY(5d)
-                    .format("${%Value}{groupsSeparator: }");
+                    .format("{%Value}{groupsSeparator: }");
 
             cartesian.animation(true);
             cartesian.title(item.getMonthName());
@@ -131,6 +135,7 @@ public class StatsActivity extends BaseActivity {
             cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
             issuesChart.setChart(cartesian);
+
         }
     }
 }
