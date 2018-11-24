@@ -2,8 +2,6 @@ package io.github.boldijar.cosasapp.parts.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,10 +26,10 @@ public class StatsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+        ButterKnife.bind(this);
         mSeekBar.setFocusableInTouchMode(false);
         mSeekBar.setFocusable(false);
         mSeekBar.setEnabled(false);
-        ButterKnife.bind(this);
         Http.getInstance().getSwaggerService().getStats().compose(RxUtils.applySchedulers()).subscribe(new Observer<Stats>() {
             @Override
             public void onSubscribe(Disposable d) {
