@@ -232,6 +232,14 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
             super(parent, R.layout.item_issue);
         }
 
+        final String[] URLS = new String[]{
+                "https://www.telegraph.co.uk/content/dam/Travel/Destinations/Oceania/Australia/Australia-overview-great%20ocean%20road.jpg?imwidth=450",
+                "https://www.telegraph.co.uk/content/dam/travel/Spark/tourism-western-australia/western-australia-road-trip.jpg?imwidth=450",
+                "https://d1ne1hbcnyoys2.cloudfront.net/imagegen/max/ccr/1088/-/s3/adventures-cougar-assets/travel/2017/03/31/3872/when-is-the-best-time-to-travel-australia.jpg",
+                "https://www.lookoutpro.com/wp-content/uploads/2018/04/australia_c.jpg",
+                "http://www.statravel.co.uk/static/uk_division_web_live/assets/313_x_210_Blog_Coastal.jpg",
+                "https://dynaimage.cdn.cnn.com/cnn/q_auto,w_900,c_fill,g_auto,h_506,ar_16:9/http%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F180822091052-australia-tourism-instagram---whale-shark.jpg"};
+
         @Override
         public void bind(Issue item) {
             itemView.setOnClickListener(v -> {
@@ -252,7 +260,7 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transforms(new CenterCrop(),
                     new RoundedCorners(mImage.getContext().getResources().getDimensionPixelSize(R.dimen.elevation)));
-            String image = "https://media-cdn.tripadvisor.com/media/photo-s/0e/5b/df/de/kangourou-a-lucky-bay.jpg";
+            String image = URLS[Math.abs(item.getId().hashCode()) % URLS.length];
             if (item.getImages() != null && item.getImages().size() > 0) {
                 image = item.getImages().get(0);
             }

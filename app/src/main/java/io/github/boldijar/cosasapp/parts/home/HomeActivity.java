@@ -61,4 +61,9 @@ public class HomeActivity extends BaseActivity {
     void profileClick() {
         startActivity(new Intent(this, ProfileActivity.class));
     }
+
+    @OnClick(R.id.home_own_issues)
+    void openOwnIssues() {
+        startActivity(new Intent(this, OwnIssuesActivity.class));
+    }
 }
