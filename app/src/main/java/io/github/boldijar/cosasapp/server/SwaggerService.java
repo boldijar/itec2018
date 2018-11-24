@@ -10,6 +10,7 @@ import io.github.boldijar.cosasapp.itecdata.Response;
 import io.github.boldijar.cosasapp.itecdata.Stats;
 import io.github.boldijar.cosasapp.itecdata.User;
 import io.github.boldijar.cosasapp.itecdata.UserResponse;
+import io.github.boldijar.cosasapp.itecdata.VoteModel;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -50,4 +51,7 @@ public interface SwaggerService {
 
     @POST("Account/Update")
     Completable updateProfile(@Body User user);
+
+    @POST("Issue/Vote/{Id}")
+    Completable voteIssue(@Path("Id") String issueId, @Body VoteModel voteModel);
 }

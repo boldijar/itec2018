@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -33,12 +34,16 @@ import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.base.FastAdapter;
 import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.User;
+import io.github.boldijar.cosasapp.itecdata.VoteModel;
 import io.github.boldijar.cosasapp.parts.comment.CommentsActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -163,6 +168,27 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
 
     private void likeIssue(Issue item, ImageView likeIssue) {
         item.setLiked(!item.isLiked());
+        VoteModel voteModel = item.isLiked() ? VoteModel.createThumbsUp(item.getId()) : VoteModel.createThumbsDown(item.getId());
+        Http.getInstance().getSwaggerService().voteIssue(item.getId(), voteModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Toast.makeText(IssuesActivity.this, "Vote added", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(IssuesActivity.this, "Vote not added", Toast.LENGTH_SHORT).show();
+                    }
+                });
         if (item.isLiked()) {
             likeIssue.setImageResource(R.drawable.ic_thumb_down_black_24dp);
         } else {
