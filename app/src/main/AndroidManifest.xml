@@ -33,6 +33,7 @@
         <activity android:name=".parts.comment.CommentsActivity" />
         <activity android:name=".parts.home.StatsActivity" />
         <activity android:name=".parts.profile.ProfileActivity" />
+        <activity android:name=".parts.home.OwnIssuesActivity" />
 
         <service android:name=".fcm.FCMService">
             <intent-filter>
