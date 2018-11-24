@@ -42,6 +42,8 @@ public interface SwaggerService {
 
     @POST("Issue/Create")
     Observable<Issue> createIssue(@Body Issue issue);
+    @POST("Issue/Update")
+    Completable updateIssue(@Body Issue issue);
 
     @POST("Comment/Create/{id}")
     Observable<CommentModel> createComment(@Path("id") String id, @Body CommentModel commentModel);

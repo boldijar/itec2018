@@ -3,10 +3,11 @@ package io.github.boldijar.cosasapp.itecdata;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Issue {
+public class Issue implements Serializable {
 
     public final static Issue ADD_ISSUE = new Issue();
 
@@ -52,6 +53,15 @@ public class Issue {
         mLongitude = longitude;
         mCreatedBy = createdBy;
         mId = java.util.UUID.randomUUID().toString();
+    }
+
+    public Issue(String title, String message, double latitude, double longitude, String createdBy, String id) {
+        mTitle = title;
+        mDescription = message;
+        mLatitude = latitude;
+        mLongitude = longitude;
+        mCreatedBy = createdBy;
+        mId = id;
     }
 
     public void setLiked(boolean liked) {

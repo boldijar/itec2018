@@ -1,5 +1,6 @@
 package io.github.boldijar.cosasapp.parts.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import io.github.boldijar.cosasapp.base.FastAdapter;
 import io.github.boldijar.cosasapp.itecdata.Issue;
 import io.github.boldijar.cosasapp.itecdata.UserResponse;
 import io.github.boldijar.cosasapp.parts.comment.CommentsActivity;
+import io.github.boldijar.cosasapp.parts.issues.EditIssueActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
@@ -43,6 +45,11 @@ public class OwnIssuesActivity extends BaseActivity {
         setContentView(R.layout.activity_own_issues);
         ButterKnife.bind(this);
 
+        loadDATA();
+
+    }
+
+    private void loadDATA() {
         Http.getInstance().getSwaggerService().getUser(Prefs.getItecUser().getEmail())
                 .compose(RxUtils.applySchedulers())
                 .subscribe(new Observer<UserResponse>() {
@@ -80,6 +87,8 @@ public class OwnIssuesActivity extends BaseActivity {
         View mComment;
         @BindView(R.id.issue_text_description)
         TextView mDescription;
+        @BindView(R.id.issue_comment_edit)
+        View mEdit;
 
         public IssueHolder(ViewGroup parent) {
             super(parent, R.layout.item_issue_own);
@@ -109,6 +118,15 @@ public class OwnIssuesActivity extends BaseActivity {
             mComment.setOnClickListener(v -> startActivityForResult(CommentsActivity.createIntent(item.getId(),
                     item.getCommentModels(), OwnIssuesActivity.this), 2));
             mDescription.setText(item.getDescription());
+            mEdit.setOnClickListener(v -> startActivityForResult(EditIssueActivity.createIntent(item, OwnIssuesActivity.this), 2));
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            loadDATA();
         }
     }
 
