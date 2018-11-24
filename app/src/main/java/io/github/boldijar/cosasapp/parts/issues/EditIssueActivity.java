@@ -46,7 +46,7 @@ public class EditIssueActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edi_issuec);
+        setContentView(R.layout.activity_edi_issue);
         ButterKnife.bind(this);
         mIssue = (Issue) getIntent().getSerializableExtra("issue");
         mLocation.setText(mIssue.getLatitude() + ", " + mIssue.getLongitude());
