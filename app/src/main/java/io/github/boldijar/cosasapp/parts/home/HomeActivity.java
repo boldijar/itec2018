@@ -12,6 +12,7 @@ import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.parts.issues.IssuesActivity;
 import io.github.boldijar.cosasapp.parts.login.LoginActivity;
+import io.github.boldijar.cosasapp.parts.profile.ProfileActivity;
 import io.github.boldijar.cosasapp.util.Prefs;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
@@ -56,4 +57,8 @@ public class HomeActivity extends BaseActivity {
         startActivity(new Intent(this, StatsActivity.class));
     }
 
+    @OnClick(R.id.home_profile)
+    void profileClick() {
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
 }

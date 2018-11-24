@@ -10,6 +10,7 @@ import io.github.boldijar.cosasapp.itecdata.Response;
 import io.github.boldijar.cosasapp.itecdata.Stats;
 import io.github.boldijar.cosasapp.itecdata.User;
 import io.github.boldijar.cosasapp.itecdata.UserResponse;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -46,4 +47,7 @@ public interface SwaggerService {
 
     @GET("Statistics/GetStats")
     Observable<Stats> getStats();
+
+    @POST("Account/Update")
+    Completable updateProfile(@Body User user);
 }

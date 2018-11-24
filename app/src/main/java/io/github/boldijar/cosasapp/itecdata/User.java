@@ -40,6 +40,17 @@ public class User {
         mPassword = password;
         mRadius = radius;
     }
+    public User(Integer age, String email, String fullName, Integer gender, Double latitude, Double longitude, String password, Integer radius,String id) {
+        mId = id;
+        mAge = age;
+        mEmail = email;
+        mFullName = fullName;
+        mGender = gender;
+        mLatitude = latitude;
+        mLongitude = longitude;
+        mPassword = password;
+        mRadius = radius;
+    }
 
     public Integer getAge() {
         return mAge;
