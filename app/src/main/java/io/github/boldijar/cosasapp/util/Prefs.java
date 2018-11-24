@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import io.github.boldijar.cosasapp.itecdata.User;
+
 /**
  * This class handles user preferences
  *
@@ -40,7 +42,14 @@ public enum Prefs {
     }
 
     public static io.github.boldijar.cosasapp.itecdata.User getItecUser() {
-        return User.getFromJson(io.github.boldijar.cosasapp.itecdata.User.class);
+        io.github.boldijar.cosasapp.itecdata.User user = User.getFromJson(io.github.boldijar.cosasapp.itecdata.User.class);
+        if (user == null) {
+            user = new User();
+            user.setFullName("");
+            user.setEmail("");
+            user.setId("");
+        }
+        return user;
     }
 
     public void put(Object value) {

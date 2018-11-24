@@ -131,6 +131,22 @@
                 tools:ignore="MissingPrefix" />
 
             <TextView
+                android:id="@+id/fb"
+                fontPath="Poppins-Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Login with Facebook"
+                android:textColor="#3b5998"
+                android:textSize="16sp"
+                tools:ignore="MissingPrefix" />
+
+
+            <TextView
                 android:id="@+id/login_create_account"
                 fontPath="Poppins-Black.ttf"
                 android:layout_width="match_parent"
@@ -141,6 +157,21 @@
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/create_account"
+                android:textColor="@color/text_color_important"
+                android:textSize="16sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:id="@+id/login_skip"
+                fontPath="Poppins-Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Skip"
                 android:textColor="@color/text_color_important"
                 android:textSize="16sp"
                 tools:ignore="MissingPrefix" />

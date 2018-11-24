@@ -3,6 +3,7 @@ package io.github.boldijar.cosasapp.parts.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import butterknife.BindView;
@@ -26,6 +27,12 @@ public class HomeActivity extends BaseActivity {
     ImageView mImage;
     @BindView(R.id.home_image_layout)
     PulsatorLayout mPulsatorLayout;
+    @BindView(R.id.home_logout)
+    View mLogout;
+    @BindView(R.id.home_profile)
+    View mProfile;
+    @BindView(R.id.home_own_issues)
+    View mOwnIssue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +44,13 @@ public class HomeActivity extends BaseActivity {
     private void loadUi() {
         ButterKnife.bind(this);
         mPulsatorLayout.start();
+        if (Prefs.Token.get() == null) {
+            mLogout.setVisibility(View.GONE);
+            mProfile.setVisibility(View.GONE);
+            mOwnIssue.setVisibility(View.GONE);
+        }
     }
+
 
     @OnClick(R.id.home_issues)
     void issues() {

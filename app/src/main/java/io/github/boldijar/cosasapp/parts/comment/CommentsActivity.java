@@ -67,6 +67,9 @@ public class CommentsActivity extends BaseActivity {
         mId = getIntent().getStringExtra("id");
         mCommentModels = (List<CommentModel>) getIntent().getSerializableExtra("comments");
         initUi();
+        if (Prefs.Token.get() == null) {
+            mCommentsRoot.setVisibility(View.GONE);
+        }
         mCommentsAdapter.addComments(mCommentModels, false);
 
     }

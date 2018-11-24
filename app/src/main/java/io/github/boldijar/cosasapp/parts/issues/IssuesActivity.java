@@ -274,6 +274,9 @@ public class IssuesActivity extends BaseActivity implements OnMapReadyCallback, 
             }
             boolean ownIssue = item.getCreatedBy().equals(Prefs.getItecUser().getId());
             mLikeIssue.setVisibility(ownIssue ? View.GONE : View.VISIBLE);
+            if (Prefs.Token.get() == null) {
+                mLikeIssue.setVisibility(View.GONE);
+            }
             mComment.setOnClickListener(v -> startActivityForResult(CommentsActivity.createIntent(item.getId(), item.getCommentModels(), IssuesActivity.this), 2));
         }
     }

@@ -39,6 +39,11 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.login_skip)
+    void skip() {
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+    }
+
     @OnClick(R.id.login_continue)
     void login() {
         Http.getInstance().getSwaggerService().login(mEmail.getText().toString(),

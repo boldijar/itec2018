@@ -49,6 +49,7 @@ public class OwnIssuesActivity extends BaseActivity {
 
     }
 
+
     private void loadDATA() {
         Http.getInstance().getSwaggerService().getUser(Prefs.getItecUser().getEmail())
                 .compose(RxUtils.applySchedulers())
