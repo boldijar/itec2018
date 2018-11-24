@@ -19,6 +19,8 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.github.anastr.speedviewlib.PointerSpeedometer;
+import com.github.anastr.speedviewlib.SpeedView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +41,10 @@ import io.reactivex.disposables.Disposable;
 
 public class StatsActivity extends BaseActivity {
 
-    @BindView(R.id.stats_seekbar)
-    SeekBar mSeekBar;
-    @BindView(R.id.stats_health)
-    TextView mHealth;
     @BindView(R.id.stats_recycler)
     RecyclerView mStatsRecycler;
+    @BindView(R.id.health_meter)
+    PointerSpeedometer healthMeter;
     private FastAdapter<MonthlyData, StatsActivity.MonthlyDataHolder> mAdapter;
 
 
@@ -53,9 +53,6 @@ public class StatsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
         ButterKnife.bind(this);
-        mSeekBar.setFocusableInTouchMode(false);
-        mSeekBar.setFocusable(false);
-        mSeekBar.setEnabled(false);
         Http.getInstance().getSwaggerService().getStats().compose(RxUtils.applySchedulers()).subscribe(new Observer<Stats>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -81,8 +78,11 @@ public class StatsActivity extends BaseActivity {
     }
 
     private void loadUi(Stats stats) {
-        mHealth.setText("Health index : " + stats.getHealthIndex());
-        mSeekBar.setProgress((int) (stats.getHealthIndex() * 10));
+        healthMeter.setMinMaxSpeed(0, 10);
+        healthMeter.setTrembleDegree(0.1f);
+        healthMeter.setUnit("");
+        healthMeter.speedTo(stats.getHealthIndex());
+
 
         mAdapter = new FastAdapter<MonthlyData, MonthlyDataHolder>() {
             @Override

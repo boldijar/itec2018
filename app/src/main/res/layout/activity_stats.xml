@@ -10,28 +10,18 @@
         android:layout_height="wrap_content"
         app:text="Stats" />
 
-
-    <TextView
-        android:id="@+id/stats_health"
+    <com.github.anastr.speedviewlib.PointerSpeedometer
+        android:id="@+id/health_meter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Health index"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
-    <SeekBar
-        android:id="@+id/stats_seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:enabled="false"
-        android:max="100" />
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/stats_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
